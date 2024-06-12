@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-5">Add Product</h1>
+        <form action="/admin/add" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="img" class="form-label">Şəkil</label>
+                <input type="file" class="form-control" id="img" name="img" required>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Məhsul Adı</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Qiymət</label>
+                <input type="number" class="form-control" id="price" name="price" required>
+            </div>
+            <!-- <div class="mb-3">
+                <label for="date" class="form-label">Tarix</label>
+                <input type="text" class="form-control" id="date" name="date">
+            </div> -->
+            <button type="submit" class="btn btn-primary">Add Product</button>
+        </form>
+    </div>
+</body>
+
+</html>

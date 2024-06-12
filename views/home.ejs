@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <title>Jannab Perfume</title>
+</head>
+<style>
+    .custom-title h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 0;
+        /* color: #333; */
+    }
+
+    .custom-title span {
+        display: block;
+        text-align: center;
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s, box-shadow 0.2s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-img-top {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        max-height: 200px;
+        object-fit: contain;
+    }
+
+    .card-body {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-grow: 1;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        color: #333;
+        margin-top: 10px;
+    }
+
+    .card-text {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 15px;
+    }
+
+    .btn-cart {
+        background-color: #9ACD32;
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        transition: background-color 0.2s;
+        margin-top: auto;
+    }
+
+    .btn-cart:hover {
+        background-color: gold;
+    }
+</style>
+
+
+<body class="body">
+    <div class="bars">
+        <div class="Xbars">
+            <i onclick="closeBars()" class="fa-solid fa-xmark" style="color: white;"></i>
+        </div>
+        <div class="Xmain">
+            <div class="lang-box">
+                <a href="#">Ev Qoxuları</a>
+                <a href="#">Maşın Qoxuları</a>
+                <a href="#">Aksesuarlar</a>
+            </div>
+            <div class="location-box">
+                <p>Adress: Köhnə Avto Vağzal İlə Üzbə-Üz 📍</p>
+            </div>
+        </div>
+    </div>
+    <div class="containerM">
+        <!-- HEADER -->
+        <header class="header">
+            <section class="h-img">
+                <a href="/"><img src="/img/jannab_logo.png" alt=""></a>
+            </section>
+            <section class="h-search">
+                <div class="btn-alrt-srch">
+                    <input class="inp-search inpFoc" type="search" placeholder="Məhsul Axtarın..." translate="yes">
+                    <button onclick="btnSearch()" class="btn-search">Axtar</button>
+                </div>
+                <i class="alrt">Məhsul Tapılmadı</i>
+            </section>
+            <section class="h-basket">
+                <div class="basket-box">
+                    <i class="fa-solid fa-bag-shopping" style="color: rgb(7, 182, 7);"><span
+                            class="productNo">0</span></i>
+                </div>
+            </section>
+        </header>
+        <!-- helpBox -->
+        <div class="helpBox"></div>
+        <!-- NAV -->
+        <nav class="navigation">
+            <ul>
+                <a href="/">Home</a>
+                <a class="a_text" href="/about">Niyə Biz?</a>
+                <i onclick="heart()" class="fa-regular fa-heart likeH" style="color: white;"></i>
+            </ul>
+            <div>
+                <a href="https://www.instagram.com/jannabperfume/?igsh=MTZpd2Nsancxd2E2eA%3D%3D" target="_blank"
+                    rel="noopener noreferrer"><i class="fa-brands fa-instagram" style="color:#fff"></i></a>
+                <a href="https://www.google.com/maps/place/Jannab+Parfume/@41.6259717,46.6400827,17z/data=!3m1!4b1!4m6!3m5!1s0x40464b098887c685:0xb14131442001001!8m2!3d41.6259717!4d46.6400827!16s%2Fg%2F11l5nzgh7r?entry=ttu"
+                    target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-location-dot"
+                        style="color:#fff"></i></a>
+                <a href="tel:+994553974421" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-phone"
+                        style="color:#fff"></i></a>
+            </div>
+        </nav>
+        <!-- MAIN -->
+        <main class="main">
+            <div class="m-slide">
+                <img class="m-img" src="./img/FotoSLIDE3.jpg" alt="">
+                <span>Ətirlər Yalnız Öz <br> Qablarımızda Verilir...</span>
+            </div>
+        </main>
+
+
+        <div class="container mt-5">
+            <div class="custom-title mb-4 text-center">
+                <h1>JANNAB PERFUME</h1>
+                <span>The essence of elegance</span>
+            </div>
+            <div class="row">
+                <% products.forEach(product=> { %>
+                    <div class="col-6 col-sm-6 col-md-3 mb-4 col-6-custom">
+                        <div class="card custom-card h-100">
+                            <img src="/uploads/<%= product.img %>" class="card-img-top" alt="<%= product.name %>">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= product.name %>
+                                </h5>
+                                <p class="card-text">Qiymət <%= product.price %>₼
+                                </p>
+                                <span class="card-date">
+                                    <%= product.date.toLocaleString('en-US', { year: 'numeric' , month: 'short' ,
+                                        day: 'numeric' }) %>
+                                </span>
+                                <button class="btn btn-cart">
+                                    <i class="fas fa-shopping-cart"></i> Səbətə At
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+            </div>
+        </div>
+
+
+        <!-- MB ALERT -->
+        <section class="mbAlert">
+            <section>
+                <i onclick="closeMbAlert()" class="fa-solid fa-xmark" style="color: white;"></i>
+            </section>
+            <div>
+                <p class="mbProductName"></p>
+                <button class="mbClear">Sil</button>
+            </div>
+        </section>
+        <!-- MB FOOTER -->
+        <section class="mb-footer">
+            <div class="menu">
+                <i onclick="openBars()" class="fa-solid fa-bars" style="color: white;"></i>
+            </div>
+            <div class="wp_contact">
+                <a target="_blank" href="https://wa.me/+994553974421?text=Salam,Parfüm Sifariş Etmək İstəyirəm."><i
+                        class="fa-brands fa-whatsapp" style="color: white;"></i></a>
+            </div>
+            <div class="mb_basket">
+                <i onclick="openMbAlert()" class="fa-solid fa-basket-shopping" style="color: white;"><span
+                        class="mbBasketNo">0</span></i>
+            </div>
+        </section>
+        <!-- whatsapp -->
+        <div class="whatsapp-box">
+            <a target="_blank" href="https://wa.me/+994553974421?text=Salam,Parfüm Sifariş Etmək İstəyirəm."><i
+                    class="fa-brands fa-whatsapp" style="color: green;"></i></a>
+        </div>
+        <!-- B Product -->
+        <div class="b-produck">
+            <div class="x_b_product">
+                <i onclick="closeBPro()" class="fa-solid fa-xmark" style="color: white;"></i>
+            </div>
+            <div>
+                <p class="bp_name"></p>
+            </div>
+            <button class="btn-clear">Sil</button>
+        </div>
+
+        <img src="./img/thank-gif.png" class="gif-alrt" alt="">
+        <footer>
+            <span>Baras Software</span>&copy;
+        </footer>
+    </div>
+    <script src="/js/index.js"></script>
+</body>
+
+</html>
