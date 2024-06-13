@@ -84,8 +84,6 @@
         background-color: gold;
     }
 </style>
-
-
 <body class="body">
     <div class="bars">
         <div class="Xbars">
@@ -116,7 +114,7 @@
                 <i class="alrt">Məhsul Tapılmadı</i>
             </section>
             <section class="h-basket">
-                <div class="basket-box">
+                <div class="basket-box" onclick="openhBasket()">
                     <i class="fa-solid fa-bag-shopping" style="color: rgb(7, 182, 7);"><span
                             class="productNo">0</span></i>
                 </div>
@@ -148,29 +146,27 @@
                 <span>Ətirlər Yalnız Öz <br> Qablarımızda Verilir...</span>
             </div>
         </main>
-
-
         <div class="container mt-5">
             <div class="custom-title mb-4 text-center">
                 <h1>JANNAB PERFUME</h1>
                 <span>The essence of elegance</span>
             </div>
-            <div class="row">
+            <div class="row article">
                 <% products.forEach(product=> { %>
-                    <div class="col-6 col-sm-6 col-md-3 mb-4 col-6-custom">
+                    <div class="col-6 col-sm-6 col-md-3 mb-4 col-6-custom ">
                         <div class="card custom-card h-100">
                             <img src="/uploads/<%= product.img %>" class="card-img-top" alt="<%= product.name %>">
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <%= product.name %>
                                 </h5>
-                                <p class="card-text">Qiymət <%= product.price %>₼
+                                <p class="card-text priceText">Qiymət <%= product.price %>₼
                                 </p>
                                 <span class="card-date">
                                     <%= product.date.toLocaleString('en-US', { year: 'numeric' , month: 'short' ,
                                         day: 'numeric' }) %>
                                 </span>
-                                <button class="btn btn-cart">
+                                <button class="btn btn-cart addcard">
                                     <i class="fas fa-shopping-cart"></i> Səbətə At
                                 </button>
                             </div>
@@ -179,16 +175,17 @@
                     <% }); %>
             </div>
         </div>
-
-
         <!-- MB ALERT -->
         <section class="mbAlert">
             <section>
                 <i onclick="closeMbAlert()" class="fa-solid fa-xmark" style="color: white;"></i>
             </section>
-            <div>
-                <p class="mbProductName"></p>
-                <button class="mbClear">Sil</button>
+            <div class="bp_name">
+
+            </div>
+            <div class="price_btn2">
+                <p class="price_box">0</p>
+                <button class="btn-clear">Sil</button>
             </div>
         </section>
         <!-- MB FOOTER -->
@@ -215,12 +212,14 @@
             <div class="x_b_product">
                 <i onclick="closeBPro()" class="fa-solid fa-xmark" style="color: white;"></i>
             </div>
-            <div>
-                <p class="bp_name"></p>
-            </div>
-            <button class="btn-clear">Sil</button>
-        </div>
+            <div class="bp_name">
 
+            </div>
+            <div class="price_btn">
+                <p class="price_box">0</p>
+                <button class="btn-clear">Sil</button>
+            </div>
+        </div>
         <img src="./img/thank-gif.png" class="gif-alrt" alt="">
         <footer>
             <span>Baras Software</span>&copy;

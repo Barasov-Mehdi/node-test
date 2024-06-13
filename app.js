@@ -11,7 +11,6 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public'));
 
-
 app.use(express.static(path.join(__dirname, 'sasFile')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
@@ -30,6 +29,17 @@ app.get('/', async (req, res) => {
   try {
     const products = await Products.find();
     res.render('home', { products });
+  } catch (err) {
+    console.error('Error fetching products', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Yeni API endpoint
+app.get('/api/products', async (req, res) => {
+  try {
+    const products = await Products.find();
+    res.json(products);
   } catch (err) {
     console.error('Error fetching products', err);
     res.status(500).send('Internal Server Error');

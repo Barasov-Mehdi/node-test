@@ -1,1 +1,38 @@
-mongodb+srv://barassoftware:BarasBaras..@cluster0.toixv4n.mongodb.net/parfums?retryWrites=true&w=majority&appName=Cluster0
+// var card = document.createElement('div');
+// card.classList.add('card', 'custom-card', 'h-100', 'article');
+
+// var img = document.createElement('img');
+// img.classList.add('card-img-top');
+// img.src = `/uploads/${e.img}`;
+// img.alt = e.name;
+
+// var products_box = document.createElement('div');
+// products_box.classList.add('card-body');
+
+// var text = document.createElement('h5');
+// text.classList.add('card-title');
+// text.textContent = e.name;
+
+// var p = document.createElement('p');
+// p.classList.add('card-text');
+// p.textContent = `Qiymət ${e.price}₼`;
+
+// var card_date = document.createElement('span');
+// card_date.classList.add('card-date');
+// card_date.textContent = new Date(e.date).toLocaleString('en-US', {
+//     year: 'numeric', month: 'short', day: 'numeric'
+// });
+
+// var button = document.createElement('button');
+// button.classList.add('btn', 'btn-cart');
+// button.innerHTML = '<i class="fas fa-shopping-cart"></i> Səbətə At';
+
+// products_box.appendChild(text);
+// products_box.appendChild(p);
+// products_box.appendChild(card_date);
+// products_box.appendChild(button);
+
+// card.appendChild(img);
+// card.appendChild(products_box);
+
+// article.appendChild(card);
