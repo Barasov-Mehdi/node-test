@@ -121,7 +121,9 @@
             </section>
         </header>
         <!-- helpBox -->
-        <div class="helpBox"></div>
+        <div class="helpBox">
+
+        </div>
         <!-- NAV -->
         <nav class="navigation">
             <ul>
@@ -147,13 +149,13 @@
             </div>
         </main>
         <div class="container mt-5">
-            <div class="custom-title mb-4 text-center">
+            <div class="custom-title mb-4 text-center reloadPro">
                 <h1>JANNAB PERFUME</h1>
                 <span>The essence of elegance</span>
             </div>
             <div class="row article">
                 <% products.forEach(product=> { %>
-                    <div class="col-6 col-sm-6 col-md-3 mb-4 col-6-custom ">
+                    <div class="col-6 col-sm-6 col-md-3 mb-4 col-6-custom mycard">
                         <div class="card custom-card h-100">
                             <img src="/uploads/<%= product.img %>" class="card-img-top" alt="<%= product.name %>">
                             <div class="card-body">
@@ -180,11 +182,11 @@
             <section>
                 <i onclick="closeMbAlert()" class="fa-solid fa-xmark" style="color: white;"></i>
             </section>
-            <div class="bp_name">
+            <div class="bp_name bp_name2">
 
             </div>
             <div class="price_btn2">
-                <p class="price_box">0</p>
+                <p class="price_box">0₼</p>
                 <button class="btn-clear">Sil</button>
             </div>
         </section>
@@ -199,7 +201,7 @@
             </div>
             <div class="mb_basket">
                 <i onclick="openMbAlert()" class="fa-solid fa-basket-shopping" style="color: white;"><span
-                        class="mbBasketNo">0</span></i>
+                        class="productNo">0</span></i>
             </div>
         </section>
         <!-- whatsapp -->
@@ -212,11 +214,11 @@
             <div class="x_b_product">
                 <i onclick="closeBPro()" class="fa-solid fa-xmark" style="color: white;"></i>
             </div>
-            <div class="bp_name">
+            <div class="bp_name ">
 
             </div>
             <div class="price_btn">
-                <p class="price_box">0</p>
+                <p class="price_box">0₼</p>
                 <button class="btn-clear">Sil</button>
             </div>
         </div>
