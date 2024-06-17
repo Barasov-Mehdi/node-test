@@ -4,11 +4,10 @@ const multer = require('multer');
 const path = require('path');
 const Products = require('../models/products');
 
-
 // Multer setup for file uploads
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/uploads') // Define the destination folder for the uploaded files
+        cb(null, path.join(__dirname, '../public/uploads')); // Define the destination folder for the uploaded files
     },
     filename: function (req, file, cb) {
         const ext = path.extname(file.originalname); // Get the extension of the file
@@ -26,6 +25,9 @@ router.get('/add', (req, res) => {
 router.post('/add', upload.single('img'), async (req, res) => {
     try {
         const { name, price } = req.body;
+        if (!req.file) {
+            throw new Error('File upload failed');
+        }
         const img = req.file.filename; // Get the filename of the uploaded image
         const newProduct = new Products({ img, name, price }); // Use img variable to store the filename
         await newProduct.save();
@@ -36,7 +38,6 @@ router.post('/add', upload.single('img'), async (req, res) => {
     }
 });
 
-// Route for rendering the remove product form
 router.get('/remove', async (req, res) => {
     try {
         const products = await Products.find();
@@ -47,7 +48,6 @@ router.get('/remove', async (req, res) => {
     }
 });
 
-// Route for handling the removal of a product
 router.post('/remove', async (req, res) => {
     try {
         const { productId } = req.body;
