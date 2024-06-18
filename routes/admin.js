@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
 const path = require('path');
 const Products = require('../models/products');
+const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
 
 // Multer setup for file uploads
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '../public/uploads')); // Define the destination folder for the uploaded files
+        cb(null, 'public/uploads') // Define the destination folder for the uploaded files
     },
     filename: function (req, file, cb) {
         const ext = path.extname(file.originalname); // Get the extension of the file
@@ -22,14 +23,16 @@ router.get('/add', (req, res) => {
     res.render('admin/add');
 });
 
+// Route for handling the addition of a product
 router.post('/add', upload.single('img'), async (req, res) => {
     try {
         const { name, price } = req.body;
-        if (!req.file) {
-            throw new Error('File upload failed');
-        }
-        const img = req.file.filename; // Get the filename of the uploaded image
-        const newProduct = new Products({ img, name, price }); // Use img variable to store the filename
+        const result = await cloudinary.uploader.upload(req.file.path); // Upload image to Cloudinary
+        const newProduct = new Products({
+            img: result.secure_url, // Use secure URL provided by Cloudinary
+            name,
+            price
+        });
         await newProduct.save();
         res.redirect('/admin/add');
     } catch (err) {
@@ -38,6 +41,7 @@ router.post('/add', upload.single('img'), async (req, res) => {
     }
 });
 
+// Route for rendering the remove product form
 router.get('/remove', async (req, res) => {
     try {
         const products = await Products.find();
@@ -48,6 +52,7 @@ router.get('/remove', async (req, res) => {
     }
 });
 
+// Route for handling the removal of a product
 router.post('/remove', async (req, res) => {
     try {
         const { productId } = req.body;

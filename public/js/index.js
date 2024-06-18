@@ -25,7 +25,7 @@ function btnSearch() {
                     var cardHTML = `
                     <div class="col-6 col-sm-6 col-md-3 mb-4 col-6-custom">
                         <div class="card custom-card h-100">
-                            <img src="/uploads/${e.img}" class="card-img-top" alt="${e.name}">
+                            <img src="${e.img}" class="card-img-top" alt="${e.name}">
                             <div class="card-body">
                                 <h5 class="card-title">${e.name}</h5>
                                 <p class="card-text priceText">Qiymət ${e.price}₼</p>
@@ -135,7 +135,7 @@ function bodyToucy() {
                     var cardHTML = `
                 <div class="col-6 col-sm-6 col-md-3 mb-4 col-6-custom">
                     <div class="card custom-card h-100">
-                        <img src="/uploads/${e.img}" class="card-img-top" alt="${e.name}">
+                        <img src="${e.img}" class="card-img-top" alt="${e.name}">
                         <div class="card-body">
                             <h5 class="card-title">${e.name}</h5>
                             <p class="card-text priceText">Qiymət ${e.price}₼</p>
