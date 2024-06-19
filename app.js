@@ -5,8 +5,8 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const Products = require('./models/products');
-const multer = require('multer'); // Multer modülünü ekleyin
-const cloudinary = require('cloudinary').v2; // Cloudinary modülünü ekleyin
+const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
 
 // Cloudinary yapılandırması
 cloudinary.config({
@@ -27,11 +27,12 @@ app.use(bodyParser.json());
 const homeRouter = require('./routes/home');
 const aboutRouter = require('./routes/about');
 const adminRouter = require('./routes/admin');
+const errRouter = require('./routes/err');
 app.use('/home', homeRouter);
 app.use('/about', aboutRouter);
 app.use('/admin', adminRouter);
+app.use('/err', errRouter);
 
-// MongoDB bağlantısı
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URL, {
@@ -46,7 +47,6 @@ const connectDB = async () => {
 };
 connectDB();
 
-// Ana sayfa - Ürünleri çek ve home.ejs'e gönder
 app.get('/', async (req, res) => {
   try {
     const products = await Products.find();
@@ -57,7 +57,10 @@ app.get('/', async (req, res) => {
   }
 });
 
-// API endpoint - Tüm ürünleri JSON olarak döndür
+app.get('/about', (req, res) => {
+  res.render('about');
+});
+
 app.get('/api/products', async (req, res) => {
   try {
     const products = await Products.find();
@@ -68,12 +71,9 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
-// Hata sayfası - Geçersiz URL için
-app.get('*', (req, res) => {
-  res.send('Salam');
+app.use('*', (req, res) => {
+  res.status(404).redirect('/err');
 });
-
-// Server başlatma
 app.listen(PORT, () => {
   console.log(`Server started on ${PORT}`);
 });
