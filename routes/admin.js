@@ -26,12 +26,13 @@ router.get('/add', (req, res) => {
 // Route for handling the addition of a product
 router.post('/add', upload.single('img'), async (req, res) => {
     try {
-        const { name, price } = req.body;
+        const { name, price, content } = req.body;
         const result = await cloudinary.uploader.upload(req.file.path); // Upload image to Cloudinary
         const newProduct = new Products({
             img: result.secure_url, // Use secure URL provided by Cloudinary
             name,
-            price
+            price,
+            content
         });
         await newProduct.save();
         res.redirect('/admin/add');

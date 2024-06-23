@@ -11,11 +11,11 @@
 
 <body>
     <div class="container">
-        <h1 class="mt-5">Add Product</h1>
+        <h1 class="mt-5">MƏHSUL ƏLAVƏ ET</h1>
         <form action="/admin/add" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="img" class="form-label">Şəkil</label>
-                <input type="file" class="form-control" id="img" name="img" required>
+                <input type="file" class="form-control" id="img" name="img" accept="image/*" required>
             </div>
             <div class="mb-3">
                 <label for="name" class="form-label">Məhsul Adı</label>
@@ -25,13 +25,14 @@
                 <label for="price" class="form-label">Qiymət</label>
                 <input type="number" class="form-control" id="price" name="price" required>
             </div>
-            <!-- <div class="mb-3">
-                <label for="date" class="form-label">Tarix</label>
-                <input type="text" class="form-control" id="date" name="date">
-            </div> -->
-            <button type="submit" class="btn btn-primary">Add Product</button>
+            <div class="mb-3">
+                <label for="content" class="form-label">Haqqında Məlumat</label>
+                <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Əlavə Et</button>
         </form>
     </div>
+
 </body>
 
 </html>

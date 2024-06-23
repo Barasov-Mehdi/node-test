@@ -69,6 +69,21 @@
         margin-bottom: 15px;
     }
 
+    .read-more {
+        color: black;
+        text-decoration: none;
+        padding: 0;
+        border: none;
+        background: none;
+        cursor: pointer;
+        text-align: end;
+        font-weight: bolder;
+    }
+
+    .read-more:hover {
+        text-decoration: underline;
+    }
+
     .btn-cart {
         background-color: #9ACD32;
         color: white;
@@ -84,6 +99,7 @@
         background-color: gold;
     }
 </style>
+
 <body class="body">
     <div class="bars">
         <div class="Xbars">
@@ -155,28 +171,36 @@
             </div>
             <div class="row article">
                 <% products.forEach(product=> { %>
-                    <div class="col-6 col-sm-6 col-md-3 mb-4 col-6-custom mycard">
+                    <div class="col-12 col-sm-12 col-md-4 mb-4 col-12-custom p-10 mycard">
                         <div class="card custom-card h-100">
                             <img src="<%= product.img %>" class="card-img-top" alt="<%= product.name %>">
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <%= product.name %>
                                 </h5>
-                                <p class="card-text priceText">Qiymət <%= product.price %>₼
+                                <p class="card-text priceText">Qiymət: <%= product.price %>₼</p>
+                                <p class="card-text product-content" data-full-text="<%= product.content || '' %>">
+                                    <%= product.content && product.content.length> 40 ? product.content.substring(0,
+                                        40) + '...' : product.content || '' %>
                                 </p>
-                                <span class="card-date">
-                                    <%= product.date.toLocaleString('en-US', { year: 'numeric' , month: 'short' ,
-                                        day: 'numeric' }) %>
-                                </span>
-                                <button class="btn btn-cart addcard">
-                                    <i class="fas fa-shopping-cart"></i> Səbətə At
-                                </button>
+                                <% if (product.content && product.content.length> 40) { %>
+                                    <button class="btn btn-link read-more" onclick="toggleContent(this)">Oxu</button>
+                                    <% } %>
+                                        <span class="card-date">
+                                            <%= new Date(product.date).toLocaleString('en-US', { year: 'numeric' ,
+                                                month: 'short' , day: 'numeric' }) %>
+                                        </span>
+                                        <button class="btn btn-cart addcard">
+                                            <i class="fas fa-shopping-cart"></i> Səbətə At
+                                        </button>
                             </div>
                         </div>
                     </div>
                     <% }); %>
             </div>
         </div>
+
+
         <!-- MB ALERT -->
         <section class="mbAlert">
             <section>
@@ -227,7 +251,9 @@
             <span>Baras Software</span>&copy;
         </footer>
     </div>
-    <script src="/js/index.js"></script>
+    <script src="/js/index.js">
+        
+    </script>
 </body>
 
 </html>

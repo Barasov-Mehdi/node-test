@@ -519,13 +519,13 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 100vh;
+    height: 90vh;
     background-color: #29323c;
     border-radius: 15px;
     margin: 0 0 20px 0;
     animation: mbalrtAnimation 0.7s ease forwards;
     position: fixed;
-    top: 1px;
+    bottom: -19px;
     right: 0;
     z-index: 1;
 
@@ -588,8 +588,8 @@ body {
         }
     }
 
-
     .bp_name2 {
+        padding: 30px;
         overflow-x: scroll;
     }
 
@@ -650,7 +650,6 @@ body {
     position: fixed;
     top: 0;
     right: 0;
-    overflow-y: scroll;
 
 
     .x_b_product {
@@ -703,6 +702,9 @@ body {
             width: 20%;
             border: none;
             outline: none;
+            font-size: 16px;
+            font-weight: bolder;
+
         }
     }
 }

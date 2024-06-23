@@ -23,21 +23,29 @@ function btnSearch() {
             data.forEach(e => {
                 if (e.name.toUpperCase().includes(input)) {
                     var cardHTML = `
-                    <div class="col-6 col-sm-6 col-md-3 mb-4 col-6-custom">
-                        <div class="card custom-card h-100">
-                            <img src="${e.img}" class="card-img-top" alt="${e.name}">
-                            <div class="card-body">
-                                <h5 class="card-title">${e.name}</h5>
-                                <p class="card-text priceText">Qiymət ${e.price}₼</p>
-                                <span class="card-date">${new Date(e.date).toLocaleString('en-US', {
-                        year: 'numeric', month: 'short', day: 'numeric'
-                    })}</span>
-                                <button class="btn btn-cart addcard">
-                                    <i class="fas fa-shopping-cart"></i> Səbətə At
-                                </button>
-                            </div>
+                <div class="col-12 col-sm-12 col-md-3 mb-4 col-12-custom mycard">
+                    <div class="card custom-card h-100">
+                        <img src="${e.img}" class="card-img-top" alt="${e.name}">
+                        <div class="card-body">
+                            <h5 class="card-title">${e.name}</h5>
+                            <p class="card-text priceText">Qiymət: ${e.price}₼</p>
+                            <p class="card-text product-content" data-full-text="${e.content || ''}">
+                                ${e.content && e.content.length > 40 ? e.content.substring(0, 40) + '...' : e.content || ''}
+                            </p>
+                            ${e.content && e.content.length > 40 ? '<button class="btn btn-link read-more" onclick="toggleContent(this)">Oxu</button>' : ''}
+                            <span class="card-date">
+                                ${new Date(e.date).toLocaleString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    })}
+                            </span>
+                            <button class="btn btn-cart addcard">
+                                <i class="fas fa-shopping-cart"></i> Səbətə At
+                            </button>
                         </div>
-                    </div>`;
+                    </div>
+                </div>`;
                     article.innerHTML += cardHTML;
                 }
             });
@@ -46,7 +54,7 @@ function btnSearch() {
                 var addCardButtons = document.querySelectorAll('.addcard');
                 addCardButtons.forEach(button => {
                     button.addEventListener('click', () => {
-                        var productCard = button.closest('.col-6-custom');
+                        var productCard = button.closest('.col-12-custom');
                         var productContent = productCard.innerHTML;
 
                         var priceElement = productCard.querySelector('.priceText');
@@ -65,7 +73,7 @@ function btnSearch() {
                         });
 
                         document.querySelectorAll('.bp_name').forEach(bpName => {
-                            bpName.innerHTML += `<div class="col mb-4 col-6-custom">${productContent}</div>`;
+                            bpName.innerHTML += `<div class="col mb-4 col-12-custom">${productContent}</div>`;
                         });
 
                         ProductCount++;
@@ -133,15 +141,23 @@ function bodyToucy() {
                 data.forEach(e => {
 
                     var cardHTML = `
-                <div class="col-6 col-sm-6 col-md-3 mb-4 col-6-custom">
+                <div class="col-12 col-sm-12 col-md-4 mb-4 col-12-custom mycard">
                     <div class="card custom-card h-100">
                         <img src="${e.img}" class="card-img-top" alt="${e.name}">
                         <div class="card-body">
                             <h5 class="card-title">${e.name}</h5>
-                            <p class="card-text priceText">Qiymət ${e.price}₼</p>
-                            <span class="card-date">${new Date(e.date).toLocaleString('en-US', {
-                        year: 'numeric', month: 'short', day: 'numeric'
-                    })}</span>
+                            <p class="card-text priceText">Qiymət: ${e.price}₼</p>
+                            <p class="card-text product-content" data-full-text="${e.content || ''}">
+                                ${e.content && e.content.length > 40 ? e.content.substring(0, 40) + '...' : e.content || ''}
+                            </p>
+                            ${e.content && e.content.length > 40 ? '<button class="btn btn-link read-more" onclick="toggleContent(this)">Oxu</button>' : ''}
+                            <span class="card-date">
+                                ${new Date(e.date).toLocaleString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    })}
+                            </span>
                             <button class="btn btn-cart addcard">
                                 <i class="fas fa-shopping-cart"></i> Səbətə At
                             </button>
@@ -168,7 +184,7 @@ function addCardFunctionality() {
     var addCardButtons = document.querySelectorAll('.addcard');
     addCardButtons.forEach(button => {
         button.addEventListener('click', () => {
-            var productCard = button.closest('.col-6-custom');
+            var productCard = button.closest('.col-12-custom');
             var productContent = productCard.innerHTML;
 
             var priceElement = productCard.querySelector('.priceText');
@@ -187,7 +203,7 @@ function addCardFunctionality() {
             });
 
             document.querySelectorAll('.bp_name').forEach(bpName => {
-                bpName.innerHTML += `<div class="col mb-4 col-6-custom">${productContent}</div>`;
+                bpName.innerHTML += `<div class="col mb-4 col-12-custom">${productContent}</div>`;
             });
             ProductCount++;
             productNo.forEach(ProCount => {
@@ -262,3 +278,16 @@ likeH.addEventListener('click', function () {
 
 
 })
+function toggleContent(button) {
+    const cardBody = button.parentElement;
+    const contentPara = cardBody.querySelector('.product-content');
+    const fullText = contentPara.getAttribute('data-full-text');
+
+    if (button.textContent === 'Oxu') {
+        contentPara.textContent = fullText;
+        button.textContent = 'Bağla';
+    } else {
+        contentPara.textContent = fullText.substring(0, 40) + '...';
+        button.textContent = 'Oxu';
+    }
+}
