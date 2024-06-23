@@ -129,49 +129,51 @@ inp_search.addEventListener('input', () => {
 });
 
 function bodyToucy() {
-    var reloadPro = document.querySelector('.reloadPro');
+    var reloadPro = document.querySelectorAll('.reloadPro');
 
-    reloadPro.addEventListener('click', () => {
-        fetch('/api/products')
-            .then(response => response.json())
-            .then(data => {
-                var article = document.querySelector('.article'); // Assuming you have an element with class 'article' where products will be displayed
-                article.innerHTML = ''; // Clear previous content
+    reloadPro.forEach(e => {
+        e.addEventListener('click', () => {
+            fetch('/api/products')
+                .then(response => response.json())
+                .then(data => {
+                    var article = document.querySelector('.article'); // Assuming you have an element with class 'article' where products will be displayed
+                    article.innerHTML = ''; // Clear previous content
+                    console.log('SALAM ALEYKUM')
 
-                data.forEach(e => {
-
-                    var cardHTML = `
-                <div class="col-12 col-sm-12 col-md-4 mb-4 col-12-custom mycard">
-                    <div class="card custom-card h-100">
-                        <img src="${e.img}" class="card-img-top" alt="${e.name}">
-                        <div class="card-body">
-                            <h5 class="card-title">${e.name}</h5>
-                            <p class="card-text priceText">Qiymət: ${e.price}₼</p>
-                            <p class="card-text product-content" data-full-text="${e.content || ''}">
-                                ${e.content && e.content.length > 40 ? e.content.substring(0, 40) + '...' : e.content || ''}
-                            </p>
-                            ${e.content && e.content.length > 40 ? '<button class="btn btn-link read-more" onclick="toggleContent(this)">Oxu</button>' : ''}
-                            <span class="card-date">
-                                ${new Date(e.date).toLocaleString('en-US', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric'
-                    })}
-                            </span>
-                            <button class="btn btn-cart addcard">
-                                <i class="fas fa-shopping-cart"></i> Səbətə At
-                            </button>
+                    data.forEach(e => {
+                        var cardHTML = `
+                    <div class="col-12 col-sm-12 col-md-4 mb-4 col-12-custom mycard">
+                        <div class="card custom-card h-100">
+                            <img src="${e.img}" class="card-img-top" alt="${e.name}">
+                            <div class="card-body">
+                                <h5 class="card-title">${e.name}</h5>
+                                <p class="card-text priceText">Qiymət: ${e.price}₼</p>
+                                <p class="card-text product-content" data-full-text="${e.content || ''}">
+                                    ${e.content && e.content.length > 40 ? e.content.substring(0, 40) + '...' : e.content || ''}
+                                </p>
+                                ${e.content && e.content.length > 40 ? '<button class="btn btn-link read-more" onclick="toggleContent(this)">Oxu</button>' : ''}
+                                <span class="card-date">
+                                    ${new Date(e.date).toLocaleString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                        })}
+                                </span>
+                                <button class="btn btn-cart addcard">
+                                    <i class="fas fa-shopping-cart"></i> Səbətə At
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </div>`;
-                    article.innerHTML += cardHTML;
-                });
+                    </div>`;
+                        article.innerHTML += cardHTML;
+                    });
 
-                addCardFunctionality();
-            })
-            .catch(error => {
-                console.error('Ürünler alınırken hata oluştu', error);
-            });
+                    addCardFunctionality();
+                })
+                .catch(error => {
+                    console.error('Ürünler alınırken hata oluştu', error);
+                });
+        })
     })
 }
 bodyToucy()
