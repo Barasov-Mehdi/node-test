@@ -1,10 +1,10 @@
-const express = require('express');
 const mongoose = require('mongoose');
+
 const productsSchema = new mongoose.Schema({
-    img: String,
-    name: String,
-    price: Number,
-    content: String,
+    img: { type: String, required: true },
+    name: { type: String, required: true },
+    price: { type: mongoose.Types.Decimal128, required: true },
+    content: { type: String, required: true },
     date: {
         type: Date,
         default: Date.now

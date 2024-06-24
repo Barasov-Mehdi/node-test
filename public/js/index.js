@@ -59,7 +59,7 @@ function btnSearch() {
 
                         var priceElement = productCard.querySelector('.priceText');
                         var priceTextContent = priceElement.textContent.trim();
-                        var price = parseInt(priceTextContent.match(/\d+/)[0]);
+                        var price = parseFloat(priceTextContent.match(/(\d+(\.\d+)?)/));
 
                         if (cartIsEmpty) {
                             proCurrent = price;
@@ -191,8 +191,8 @@ function addCardFunctionality() {
 
             var priceElement = productCard.querySelector('.priceText');
             var priceTextContent = priceElement.textContent.trim();
-            var price = parseInt(priceTextContent.match(/\d+/)[0]);
-
+            var price = parseFloat(priceTextContent.match(/(\d+(\.\d+)?)/));
+            // match(/\d+/)[0]
             if (cartIsEmpty) {
                 proCurrent = price;
                 cartIsEmpty = false;
@@ -229,7 +229,7 @@ function clearCard() {
             cartIsEmpty = true;
 
             document.querySelectorAll('.price_box').forEach(priceBox => {
-                priceBox.textContent = '0.0₼';
+                priceBox.textContent = '0₼';
             });
             productNo.forEach(ProCount => {
                 ProCount.textContent = ProductCount;

@@ -4,11 +4,12 @@ const path = require('path');
 const Products = require('../models/products');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
+const mongoose = require('mongoose');
 
 // Multer setup for file uploads
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/uploads') // Define the destination folder for the uploaded files
+        cb(null, 'public/uploads'); // Define the destination folder for the uploaded files
     },
     filename: function (req, file, cb) {
         const ext = path.extname(file.originalname); // Get the extension of the file
@@ -31,7 +32,7 @@ router.post('/add', upload.single('img'), async (req, res) => {
         const newProduct = new Products({
             img: result.secure_url, // Use secure URL provided by Cloudinary
             name,
-            price,
+            price: mongoose.Types.Decimal128.fromString(price), // Convert price to Decimal128
             content
         });
         await newProduct.save();
