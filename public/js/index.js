@@ -56,30 +56,30 @@ function btnSearch() {
                     button.addEventListener('click', () => {
                         var productCard = button.closest('.col-12-custom');
                         var productContent = productCard.innerHTML;
-
+            
                         var priceElement = productCard.querySelector('.priceText');
                         var priceTextContent = priceElement.textContent.trim();
                         var price = parseFloat(priceTextContent.match(/(\d+(\.\d+)?)/));
-
+                        // match(/\d+/)[0]
                         if (cartIsEmpty) {
                             proCurrent = price;
                             cartIsEmpty = false;
                         } else {
                             proCurrent += price;
                         }
-
+            
                         document.querySelectorAll('.price_box').forEach(priceBox => {
                             priceBox.textContent = proCurrent.toFixed(1) + '₼';
                         });
-
+            
                         document.querySelectorAll('.bp_name').forEach(bpName => {
                             bpName.innerHTML += `<div class="col mb-4 col-12-custom">${productContent}</div>`;
                         });
-
                         ProductCount++;
                         productNo.forEach(ProCount => {
                             ProCount.textContent = ProductCount;
                         })
+            
                     });
                 });
             }
@@ -92,7 +92,13 @@ function btnSearch() {
 document.querySelector('.btn-search').addEventListener('click', btnSearch);
 
 var helpBox = document.querySelector('.helpBox');
-inp_search.addEventListener('input', () => {
+let debounceTimeout;
+const debounceDelay = 300;
+function debounceFetch() {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(fetchProducts, debounceDelay);
+}
+function fetchProducts() {
     var inpHelpVal = inp_search.value.trim().toUpperCase();
     helpBox.innerHTML = '';
 
@@ -104,8 +110,14 @@ inp_search.addEventListener('input', () => {
     fetch('/api/products')
         .then(res => res.json())
         .then(data => {
+            console.log('Fetched products:', data);
+            const uniqueProducts = new Set();
+
             data.forEach(product => {
-                if (product.name.toUpperCase().startsWith(inpHelpVal)) {
+                const productName = product.name.toUpperCase();
+                if (productName.startsWith(inpHelpVal) && !uniqueProducts.has(productName)) {
+                    uniqueProducts.add(productName);
+
                     var helpSpan = document.createElement('span');
                     helpSpan.classList.add('helpSpan');
                     helpSpan.textContent = product.name;
@@ -126,7 +138,8 @@ inp_search.addEventListener('input', () => {
         .catch(err => {
             console.error('Error fetching products:', err);
         });
-});
+}
+inp_search.addEventListener('input', debounceFetch);
 
 function bodyToucy() {
     var reloadPro = document.querySelectorAll('.reloadPro');
